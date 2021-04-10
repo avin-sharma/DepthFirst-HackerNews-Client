@@ -1,5 +1,9 @@
 package com.example.depthfirst
 
+import android.net.Uri
+import java.net.URL
+
+
 object Utils {
     fun convertUnixToRelativeTime(time: String): String{
         val longTime = time.toLong() * 1000
@@ -28,5 +32,19 @@ object Utils {
             else ->
                 return "${timeDifference / DAY_MILLIS} days ago"
         }
+    }
+
+    fun getHostUrl(stringUrl: String): String {
+        val url = URL(stringUrl)
+        return url.host
+    }
+
+    fun getFaviconUrl(stringUrl: String): String {
+        val uri = Uri.parse("https://www.google.com/s2/favicons")
+            .buildUpon()
+            .appendQueryParameter("domain", getHostUrl(stringUrl))
+            .build()
+
+        return uri.toString()
     }
 }
